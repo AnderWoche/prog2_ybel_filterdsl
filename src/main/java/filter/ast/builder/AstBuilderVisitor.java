@@ -5,7 +5,6 @@ import filter.FilterParser;
 import filter.ast.nodes.CompOp;
 import filter.ast.nodes.Expr;
 import filter.ast.nodes.Value;
-
 import java.util.*;
 
 public class AstBuilderVisitor extends FilterBaseVisitor<Void> {
