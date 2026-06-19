@@ -1,0 +1,45 @@
+artist == "Beatles"
+    visitor => (artist == "Beatles")
+    pattern => (artist == "Beatles")
+    (gleich)
+
+year == 1965
+    visitor => (year == 1965)
+    pattern => (year == 1965)
+    (gleich)
+
+genre in ("rock", "jazz")
+    visitor => (genre in ("rock", "jazz"))
+    pattern => (genre in ("rock", "jazz"))
+    (gleich)
+
+not artist == "Beatles"
+    visitor => (not (artist == "Beatles"))
+    pattern => (not (artist == "Beatles"))
+    (gleich)
+
+artist == "Beatles" and year == 1965
+    visitor => ((artist == "Beatles") and (year == 1965))
+    pattern => ((artist == "Beatles") and (year == 1965))
+    (gleich)
+
+artist == "Beatles" or year <= 1965
+    visitor => ((artist == "Beatles") or (year <= 1965))
+    pattern => ((artist == "Beatles") or (year <= 1965))
+    (gleich)
+
+year <= 1990 and artist == "Beatles" and year > 1960
+    visitor => (((year <= 1990) and (artist == "Beatles")) and (year > 1960))
+    pattern => (((year <= 1990) and (artist == "Beatles")) and (year > 1960))
+    (gleich)
+
+(year <= 1990 or artist == "Beatles") and year > 1960
+    visitor => (((year <= 1990) or (artist == "Beatles")) and (year > 1960))
+    pattern => (((year <= 1990) or (artist == "Beatles")) and (year > 1960))
+    (gleich)
+
+genre in ("rock", "jazz") or year <= 1990 and not artist == "Beatles"
+    visitor => ((genre in ("rock", "jazz")) or ((year <= 1990) and (not (artist == "Beatles"))))
+    pattern => ((genre in ("rock", "jazz")) or ((year <= 1990) and (not (artist == "Beatles"))))
+    (gleich)
+
