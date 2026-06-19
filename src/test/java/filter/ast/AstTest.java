@@ -127,6 +127,37 @@ public class AstTest {
             "genre in (\"rock\", \"jazz\") or year <= 1990 and not artist == \"Beatles\"");
     }
 
+    // ---- Test the AstBuilder simplify method ----
+
+    private Expr simplified(String query) {
+        return AstBuilders.fromQuery(query, ctx -> new AstBuilderPattern().translate(ctx));
+    }
+
+    @Test
+    void simplifyRemovesDoubleNot() {
+        // not not x  ->  x
+        var expected = new Expr.Comparison("artist", CompOp.EQ, new Value.Str("Beatles"));
+        assertEquals(expected, simplified("not not artist == \"Beatles\""));
+    }
+
+    @Test
+    void simplifyKeepsSingleNot() {
+        // not not not x  ->  not x
+        var expected =
+            new Expr.Not(new Expr.Comparison("artist", CompOp.EQ, new Value.Str("Beatles")));
+        assertEquals(expected, simplified("not not not artist == \"Beatles\""));
+    }
+
+    @Test
+    void simplifyWorksOnNestedDoubleNot() {
+        // a and not not b  ->  a and b
+        var expected =
+            new Expr.And(
+                new Expr.Comparison("artist", CompOp.EQ, new Value.Str("Beatles")),
+                new Expr.Comparison("year", CompOp.EQ, new Value.Num(1965)));
+        assertEquals(expected, simplified("artist == \"Beatles\" and not not year == 1965"));
+    }
+
     @Test
     void bothBuildersProduceSameAst() {
         var query = "year <= 1990 and artist == \"Beatles\" and year > 1960";
