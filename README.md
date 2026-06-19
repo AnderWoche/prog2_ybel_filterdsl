@@ -17,3 +17,8 @@ This [work] by [Carsten Gips] and [contributors] is licensed under [MIT].
   [Carsten Gips]: https://github.com/cagix
   [contributors]: https://github.com/Programmiermethoden-CampusMinden/prog2_ybel_filterdsl/graphs/contributors
   [MIT]: LICENSE.md
+
+
+# Aufgabe 4
+
+Der Visitor-Builder ist umständlicher, weil seine visit-Methoden nur Void zurückgeben und Teilergebnisse deshalb über zustandsbehaftete Stacks transportiert werden müssen — dafür ist er leicht erweiterbar, da ANTLR die Traversierung und das Methodengerüst vorgibt. Der Pattern-Matching-Builder ist kürzer, zustandslos und besser lesbar, weil jede Methode ihr Ergebnis direkt per return liefert; dafür schreibt man die Baum-Traversierung komplett von Hand.
